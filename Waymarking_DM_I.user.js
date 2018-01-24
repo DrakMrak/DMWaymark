@@ -45,7 +45,7 @@ else {
 //jméno přepnuté stránky
 var pageName = window.location.pathname.split('/').slice(0, -1).join('');
 //zkoriguje úvodní logo waymarkingu
-if (document.location.href.match(/\.com\/default\.aspx/) || document.location.href.match(/\.com/)) {
+if (document.location.href.match(/\.com\/default\.aspx/) || (document.location.href == 'http://www.waymarking.com/')) {
     addGlobalStyle('.gutter {margin: 0px 5px 20px 15px !important;}');
     var logoDef = document.getElementsByClassName('FloatLeft');
     var z = logoDef[0].querySelector("p");
@@ -80,18 +80,12 @@ if (pageName == 'wm' || pageName == 'cat') {
         }
     }
 }
-//http://www.waymarking.com/wm/search.aspx?f=1&wo=True&gid=3&st=2&lat=49.93902703599542&lon=14.187941551208496
 //okno jednoho konkrétního waymarku "waymarks"
 if (pageName == 'waymarks' || (document.location.href.match(/\.com\/wm\/add_finalize\.aspx/))) {
     console.log(pageName);
     var postedBy = document.getElementById('wm_postedby');
     var ox = postedBy.getElementsByTagName('a');
     var ownerPostedBy = ox[1].innerText;
-    //console.log(ownerPostedBy);
-    if (ownerPostedBy == ownername) {
-        var waymarkcontrol = document.getElementById('waymarkcontrol');
-        waymarkcontrol.className += ' wmd_alt_myown';
-    }
     if (document.getElementById('wm_variables') != null) {
         var varElement = document.getElementById('wm_variables');
         var x = varElement.getElementsByTagName('img');
