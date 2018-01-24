@@ -2,7 +2,7 @@
 // @name         Waymarking DM I
 // @namespace    http://tampermonkey.net/
 // @include      http*://*.waymarking.com/*
-// @version      0.1.4
+// @version      0.1.5
 // @description  Some design changes in waymarking
 // @author       DrakMrak
 // @match        http://www.waymarking.com/
@@ -45,7 +45,7 @@ else {
 //jméno přepnuté stránky
 var pageName = window.location.pathname.split('/').slice(0, -1).join('');
 //zkoriguje úvodní logo waymarkingu
-if (document.location.href.match(/\.com\/default\.aspx/)) {
+if (document.location.href.match(/\.com\/default\.aspx/) || document.location.href.match(/\.com/)) {
     addGlobalStyle('.gutter {margin: 0px 5px 20px 15px !important;}');
     var logoDef = document.getElementsByClassName('FloatLeft');
     var z = logoDef[0].querySelector("p");
