@@ -2,7 +2,7 @@
 // @name         Waymarking DM I
 // @namespace    http://tampermonkey.net/
 // @include      http*://*.waymarking.com/*
-// @version      0.1.2
+// @version      0.1.3
 // @description  Some design changes in waymarking
 // @author       DrakMrak
 // @match        http://www.waymarking.com/
@@ -40,8 +40,8 @@ else {
 }
 //console.log(ownername);
 var pageName = window.location.pathname.split('/').slice(0, -1).join('');
-//seznamy waymarků - vyhledané "wm"
-if (pageName == 'wm') {
+//seznamy waymarků - vyhledané "wm" a "cat"
+if (pageName == 'wm' || pageName == 'cat') {
     console.log(pageName);
     var rowreg = document.getElementsByClassName('wmd_reg');
     for (var i = 0; i < rowreg.length; i++) {
