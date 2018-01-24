@@ -2,7 +2,7 @@
 // @name         Waymarking DM I
 // @namespace    http://tampermonkey.net/
 // @include      http*://*.waymarking.com/*
-// @version      0.1.3
+// @version      0.1.4
 // @description  Some design changes in waymarking
 // @author       DrakMrak
 // @match        http://www.waymarking.com/
@@ -13,16 +13,20 @@
 var sheets = document.styleSheets;
 var sheet = document.styleSheets[0];
 //add rule
-addCSSRule(sheet, '.wmd_reg_myvisit', 'background-color: #5eaf5a !important;');
-addCSSRule(sheet, '.wmd_alt_myvisit', 'background-color: #8dcf8a !important;');
-addCSSRule(sheet, '.wmd_reg_myown', 'background-color: #bf85dd !important;');
-addCSSRule(sheet, '.wmd_alt_myown', 'background-color: #dbb2f0 !important;');
+addCSSRule(sheet, '.wmd_reg_myvisit', 'background-color: #8dcf8a !important;');  //#5eaf5a Tmava zelena
+addCSSRule(sheet, '.wmd_alt_myvisit', 'background-color: #b7e2b5 !important;');  //#8dcf8a Svetla zelena
+addCSSRule(sheet, '.wmd_reg_myown', 'background-color: #dbb2f0 !important;');  //#bf85dd Tmava fialova
+addCSSRule(sheet, '.wmd_alt_myown', 'background-color: #f2dffc !important;');  //#dbb2f0 Svetla fialova
+addCSSRule(sheet, '.p_logo', 'margin-top: 0.4em !important;');
 addGlobalStyle('.wmd_namebold img {margin: 0px 4px 0px 0px;}');
 addGlobalStyle('.wmd_cat {margin: -5px 0px 0px 32px;}');
 addGlobalStyle('.wmd_left {padding: 5px 0px 4px 0px !important;}');
 addGlobalStyle('.wmd_namebold {margin: -4px 0px 0px 2px !important;}');
 addGlobalStyle('#wm_variables {background-color: #ffffaa !important;}');
 addGlobalStyle('#wm_loginstructions {background-color: #a9bbe5 !important; margin: 0px !important;}');
+addGlobalStyle('#title {padding: 0px 0px 1px !important;}');
+addGlobalStyle('.filterpath {margin: 10px 0px 0px 0px !important;}');
+
 //Vytáhnu si element a jeho strukturu
 //-----------------------------------------------------------
 //Get ownername
@@ -38,8 +42,15 @@ else {
         ownername = document.getElementById('ctl00_HeaderControl1_lnkLoginName').innerText;
     }
 }
-//console.log(ownername);
+//jméno přepnuté stránky
 var pageName = window.location.pathname.split('/').slice(0, -1).join('');
+//zkoriguje úvodní logo waymarkingu
+if (document.location.href.match(/\.com\/default\.aspx/)) {
+    addGlobalStyle('.gutter {margin: 0px 5px 20px 15px !important;}');
+    var logoDef = document.getElementsByClassName('FloatLeft');
+    var z = logoDef[0].querySelector("p");
+    z.className += 'p_logo';
+}
 //seznamy waymarků - vyhledané "wm" a "cat"
 if (pageName == 'wm' || pageName == 'cat') {
     console.log(pageName);
@@ -69,13 +80,22 @@ if (pageName == 'wm' || pageName == 'cat') {
         }
     }
 }
+//http://www.waymarking.com/wm/search.aspx?f=1&wo=True&gid=3&st=2&lat=49.93902703599542&lon=14.187941551208496
 //okno jednoho konkrétního waymarku "waymarks"
-if (pageName == 'waymarks') {
+if (pageName == 'waymarks' || (document.location.href.match(/\.com\/wm\/add_finalize\.aspx/))) {
     console.log(pageName);
+    var postedBy = document.getElementById('wm_postedby');
+    var ox = postedBy.getElementsByTagName('a');
+    var ownerPostedBy = ox[1].innerText;
+    //console.log(ownerPostedBy);
+    if (ownerPostedBy == ownername) {
+        var waymarkcontrol = document.getElementById('waymarkcontrol');
+        waymarkcontrol.className += ' wmd_alt_myown';
+    }
     if (document.getElementById('wm_variables') != null) {
         var varElement = document.getElementById('wm_variables');
         var x = varElement.getElementsByTagName('img');
-        console.log(x.length);
+        //console.log(x.length);
         if (x !== null) {
             for (var k = 0; k < x.length; k++) {
                 x[k].height = '0';
