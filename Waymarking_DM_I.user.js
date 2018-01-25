@@ -2,7 +2,7 @@
 // @name         Waymarking DM I
 // @namespace    http://tampermonkey.net/
 // @include      http*://*.waymarking.com/*
-// @version      0.1.5
+// @version      0.1.6
 // @description  Some design changes in waymarking
 // @author       DrakMrak
 // @match        http://www.waymarking.com/
@@ -26,6 +26,7 @@ addGlobalStyle('#wm_variables {background-color: #ffffaa !important;}');
 addGlobalStyle('#wm_loginstructions {background-color: #a9bbe5 !important; margin: 0px !important;}');
 addGlobalStyle('#title {padding: 0px 0px 1px !important;}');
 addGlobalStyle('.filterpath {margin: 10px 0px 0px 0px !important;}');
+addGlobalStyle('.boldheader-xs {background-color: #e3ddc2; font-weight: bold;}');
 
 //Vytáhnu si element a jeho strukturu
 //-----------------------------------------------------------
@@ -45,6 +46,17 @@ else {
 //jméno přepnuté stránky
 var pageName = window.location.pathname.split('/').slice(0, -1).join('');
 //zkoriguje úvodní logo waymarkingu
+if (document.location.href.match(/\.com\/users\/profile\.aspx/)) {
+    console.log(pageName);
+    if (document.getElementById('ctl00_ContentBody_StatsPanel1_tblStats')) {
+        var tbl = document.getElementById('ctl00_ContentBody_StatsPanel1_tblStats');
+        var tr = tbl.getElementsByTagName('tr');
+        //
+        for(i=0; i<tr.length; i++){
+            if(i%2==0) tr[i].style.backgroundColor = '#f1f1f1';
+        }
+    }
+}
 if (document.location.href.match(/\.com\/default\.aspx/) || (document.location.href == 'http://www.waymarking.com/')) {
     addGlobalStyle('.gutter {margin: 0px 5px 20px 15px !important;}');
     var logoDef = document.getElementsByClassName('FloatLeft');
