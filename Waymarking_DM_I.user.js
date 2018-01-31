@@ -16,7 +16,7 @@ var sheet = document.styleSheets[0];
 addCSSRule(sheet, '.wmd_reg_myvisit', 'background-color: #8dcf8a !important;');  //#5eaf5a Tmava zelena
 addCSSRule(sheet, '.wmd_alt_myvisit', 'background-color: #b7e2b5 !important;');  //#8dcf8a Svetla zelena
 addCSSRule(sheet, '.wmd_reg_myown', 'background-color: #dbb2f0 !important;');  //#bf85dd Tmava fialova
-addCSSRule(sheet, '.wmd_alt_myown', 'background-color: #f2dffc !important;');  //#dbb2f0 Svetla fialova
+addCSSRule(sheet, '.wmd_alt_myown', 'background-color: #e9cef7 !important;');  //#dbb2f0 Svetla fialova
 addCSSRule(sheet, '.p_logo', 'margin-top: 0.4em !important;');
 addGlobalStyle('.wmd_namebold img {margin: 0px 4px 0px 0px;}');
 addGlobalStyle('.wmd_cat {margin: -5px 0px 0px 32px;}');
