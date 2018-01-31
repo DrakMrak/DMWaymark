@@ -2,7 +2,7 @@
 // @name         Waymarking DM I
 // @namespace    http://tampermonkey.net/
 // @include      http*://*.waymarking.com/*
-// @version      0.1.4
+// @version      0.1.6
 // @description  Some design changes in waymarking
 // @author       DrakMrak
 // @match        http://www.waymarking.com/
@@ -26,6 +26,7 @@ addGlobalStyle('#wm_variables {background-color: #ffffaa !important;}');
 addGlobalStyle('#wm_loginstructions {background-color: #a9bbe5 !important; margin: 0px !important;}');
 addGlobalStyle('#title {padding: 0px 0px 1px !important;}');
 addGlobalStyle('.filterpath {margin: 10px 0px 0px 0px !important;}');
+addGlobalStyle('.boldheader-xs {background-color: #e3ddc2; font-weight: bold;}');
 
 //Vytáhnu si element a jeho strukturu
 //-----------------------------------------------------------
@@ -45,7 +46,18 @@ else {
 //jméno přepnuté stránky
 var pageName = window.location.pathname.split('/').slice(0, -1).join('');
 //zkoriguje úvodní logo waymarkingu
-if (document.location.href.match(/\.com\/default\.aspx/)) {
+if (document.location.href.match(/\.com\/users\/profile\.aspx/)) {
+    console.log(pageName);
+    if (document.getElementById('ctl00_ContentBody_StatsPanel1_tblStats')) {
+        var tbl = document.getElementById('ctl00_ContentBody_StatsPanel1_tblStats');
+        var tr = tbl.getElementsByTagName('tr');
+        //
+        for(i=0; i<tr.length; i++){
+            if(i%2==0) tr[i].style.backgroundColor = '#f1f1f1';
+        }
+    }
+}
+if (document.location.href.match(/\.com\/default\.aspx/) || (document.location.href == 'http://www.waymarking.com/')) {
     addGlobalStyle('.gutter {margin: 0px 5px 20px 15px !important;}');
     var logoDef = document.getElementsByClassName('FloatLeft');
     var z = logoDef[0].querySelector("p");
@@ -80,18 +92,12 @@ if (pageName == 'wm' || pageName == 'cat') {
         }
     }
 }
-//http://www.waymarking.com/wm/search.aspx?f=1&wo=True&gid=3&st=2&lat=49.93902703599542&lon=14.187941551208496
 //okno jednoho konkrétního waymarku "waymarks"
 if (pageName == 'waymarks' || (document.location.href.match(/\.com\/wm\/add_finalize\.aspx/))) {
     console.log(pageName);
     var postedBy = document.getElementById('wm_postedby');
     var ox = postedBy.getElementsByTagName('a');
     var ownerPostedBy = ox[1].innerText;
-    //console.log(ownerPostedBy);
-    if (ownerPostedBy == ownername) {
-        var waymarkcontrol = document.getElementById('waymarkcontrol');
-        waymarkcontrol.className += ' wmd_alt_myown';
-    }
     if (document.getElementById('wm_variables') != null) {
         var varElement = document.getElementById('wm_variables');
         var x = varElement.getElementsByTagName('img');
