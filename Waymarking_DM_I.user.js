@@ -91,6 +91,21 @@ if (pageName == 'wm' || pageName == 'cat') {
             rowalt[j].className += ' wmd_alt_myown';
         }
     }
+		//Change LON character from W to E automatically - if you do not want to comment on the whole block W --> E
+    //W --> E
+    if (document.getElementById('ctl00_ContentBody_WaymarkEditControl1_lleCoordinates_ddlMinDecLonHeading')) {
+        var lonElement = document.querySelectorAll('[id*=_ddlMinDecLonHeading]');
+        console.log(lonElement);
+        for (var jj = 0; jj < lonElement.length; jj++) {
+            var optElement = lonElement[jj].getElementsByTagName('option');
+            console.log(optElement);
+            for (var j = 0; j < optElement.length; j++) {
+                if (j==0) {optElement[j].setAttribute("selected", "selected");}
+                if (j==1) {optElement[j].removeAttribute("selected");}
+            }
+        }
+    }
+    //W --> E
 }
 //okno jednoho konkrétního waymarku "waymarks"
 if (pageName == 'waymarks' || (document.location.href.match(/\.com\/wm\/add_finalize\.aspx/))) {
