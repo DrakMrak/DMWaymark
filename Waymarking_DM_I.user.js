@@ -2,7 +2,7 @@
 // @name         Waymarking DM I
 // @namespace    http://tampermonkey.net/
 // @include      http*://*.waymarking.com/*
-// @version      0.1.6
+// @version      0.1.7
 // @description  Some design changes in waymarking
 // @author       DrakMrak
 // @match        http://www.waymarking.com/
@@ -92,8 +92,8 @@ if (pageName == 'wm' || pageName == 'cat') {
         }
     }
 		//Change LON character from W to E automatically - if you do not want to comment on the whole block W --> E
-    //W --> E
-    if (document.getElementById('ctl00_ContentBody_WaymarkEditControl1_lleCoordinates_ddlMinDecLonHeading')) {
+    //W --> E - zatím vypnuto nedělá to dobrotu při editaci sice přepne na "E" ale pořád si to drží někde "W"
+    /*if (document.getElementById('ctl00_ContentBody_WaymarkEditControl1_lleCoordinates_ddlMinDecLonHeading')) {
         var lonElement = document.querySelectorAll('[id*=_ddlMinDecLonHeading]');
         console.log(lonElement);
         for (var jj = 0; jj < lonElement.length; jj++) {
@@ -104,7 +104,7 @@ if (pageName == 'wm' || pageName == 'cat') {
                 if (j==1) {optElement[j].removeAttribute("selected");}
             }
         }
-    }
+    }*/
     //W --> E
 }
 //okno jednoho konkrétního waymarku "waymarks"
